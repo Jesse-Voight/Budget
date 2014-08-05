@@ -6,6 +6,9 @@
 
 package budget;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author JessVoig
@@ -38,6 +41,11 @@ public class BudgetForm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Budget");
@@ -116,6 +124,16 @@ public class BudgetForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ArrayList results = DatabaseConnector.loadCurrentMonth(new Date());
+        for(Object s: results){
+            //String[])s;
+            for(String t: (String[])s){
+                System.out.println(t);
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
