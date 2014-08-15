@@ -32,11 +32,11 @@ public class BudgetForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jCalendar = new com.toedter.calendar.JCalendar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        debitsTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        crebitsTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -50,20 +50,26 @@ public class BudgetForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Budget");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jCalendar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jCalendarPropertyChange(evt);
+            }
+        });
+
+        debitsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Debits"
+                "Debit Desc", "Debit Value"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(debitsTable);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        crebitsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -74,7 +80,7 @@ public class BudgetForm extends javax.swing.JFrame {
                 "Crebits"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(crebitsTable);
 
         jButton1.setText("Add Debit");
 
@@ -91,16 +97,16 @@ public class BudgetForm extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(226, 226, 226))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(237, 237, 237)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 216, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addComponent(jCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -108,7 +114,7 @@ public class BudgetForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -126,18 +132,20 @@ public class BudgetForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ArrayList results = DatabaseConnector.loadCurrentMonth(new Date());
+        /*ArrayList results = DatabaseConnector.loadCurrentMonth(new Date());
         for(Object s: results){
             //String[])s;
             for(String t: (String[])s){
                 System.out.println(t);
             }
-        }
+        }*/
+        getDayRecords(new Date()); //Todays date
     }//GEN-LAST:event_formWindowOpened
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jCalendarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarPropertyChange
+        getDayRecords(jCalendar.getDate());
+    }//GEN-LAST:event_jCalendarPropertyChange
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -169,15 +177,55 @@ public class BudgetForm extends javax.swing.JFrame {
             }
         });
     }
-
+    // <editor-fold defaultstate="collapsed" desc="Variable Declaration">  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable crebitsTable;
+    private javax.swing.JTable debitsTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JCalendar jCalendar1;
+    private com.toedter.calendar.JCalendar jCalendar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
+// </editor-fold>
+    public void getDayRecords(Date date){
+        ArrayList list = DatabaseConnector.loadCurrentDay(date);
+        System.out.println("Running load current day");
+        int crebits = 0;
+        int debits = 0;
+        int count = 0;
+        String debitColNames[] = {"Debit Desc", "Debit Cost"};
+        String crebitColNames[] = {"Crebit Desc", "Crebit Cost"};
+        BetterTableModel dtm = new BetterTableModel();
+        BetterTableModel ctm = new BetterTableModel();
+        dtm.setDataVector(null, debitColNames);
+        ctm.setDataVector(null, crebitColNames);
+        debitsTable.setModel(dtm);
+        crebitsTable.setModel(ctm);
+        
+        for(Object i: list){  //get single entry
+            String[] item = (String[])i;
+            if(Float.valueOf(item[2]) > 0){
+                System.out.print("Positive Value: ");
+                ctm.addRow(new String[2]);
+                crebitsTable.getModel().setValueAt(item[1], crebits, 0);
+                crebitsTable.getModel().setValueAt("$"+item[2], crebits, 1);
+                crebits++;
+                //count++;
+            }
+            else{
+                System.out.print("Negative Value: ");
+                dtm.addRow(new String[2]);
+                debitsTable.getModel().setValueAt(item[1], debits, 0);
+                debitsTable.getModel().setValueAt("$"+item[2], debits, 1);
+                debits++;
+                //count++;
+            }
+            for(Object j: (String[])i){
+                System.out.print(j);
+                System.out.print(" ");
+            }System.out.println(" ");
+        }
+    }
 }
