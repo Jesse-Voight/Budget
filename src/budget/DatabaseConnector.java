@@ -7,6 +7,7 @@ package budget;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DecimalFormat;
@@ -52,6 +53,33 @@ public class DatabaseConnector {
         }
         return resultArray;
     }
+    public static void saveTransaction(Date date, Float cost,String description){
+        String url = "jdbc:mysql://localhost:3306/";
+        String dbName = "budget";
+        String driver = "com.mysql.jdbc.Driver";
+        String userName = "jessvoig";
+        String password = "qzpm9876";
+        PreparedStatement ps;
+        
+        try {
+            Class.forName(driver).newInstance();
+            try (Connection conn = DriverManager.getConnection(url + dbName, userName, password)) {
+                PreparedStatement st = conn.prepareStatement("INSERT into `budget`.`data` (`date_code`,`desciption`,`cost`,`day`) VALUES ( ? , ? , ? , ? );");
+                //String query = ("INSERT into `budget`.`data` (`date_code`,`desciption`,`cost`,`day`) VALUES ('?','?','?','?');");
+                st.setString(1, formatDate(date));
+                st.setString(2, description);
+                st.setString(3, String.valueOf(cost));
+                st.setString(4, String.valueOf(4));
+                st.executeUpdate();
+                conn.close();
+
+            }
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     public static String formatDate(Date date){
         SimpleDateFormat sdformat = new SimpleDateFormat("yyyyMMdd");
         String formattedDate = sdformat.format(date);

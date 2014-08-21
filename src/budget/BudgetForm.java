@@ -68,7 +68,11 @@ public class BudgetForm extends javax.swing.JFrame {
         debitDialog.setTitle("Create Debit");
         debitDialog.setMaximumSize(new java.awt.Dimension(298, 244));
         debitDialog.setMinimumSize(new java.awt.Dimension(298, 244));
-        debitDialog.setResizable(false);
+        debitDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                debitDialogWindowActivated(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Create Debit");
@@ -142,7 +146,6 @@ public class BudgetForm extends javax.swing.JFrame {
         );
 
         crebitDialog.setTitle("Create Debit");
-        crebitDialog.setMaximumSize(new java.awt.Dimension(298, 244));
         crebitDialog.setMinimumSize(new java.awt.Dimension(298, 244));
         crebitDialog.setResizable(false);
 
@@ -164,6 +167,11 @@ public class BudgetForm extends javax.swing.JFrame {
         jLabel9.setText("Description of Crebit:");
 
         crebitSaveButton.setText("Save & Close");
+        crebitSaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crebitSaveButtonActionPerformed(evt);
+            }
+        });
 
         crebitCancelButton.setText("Cancel");
 
@@ -358,6 +366,19 @@ public class BudgetForm extends javax.swing.JFrame {
         debitDialog.setLocation(this.getLocationOnScreen());
         debitDialog.setVisible(true);
     }//GEN-LAST:event_addDebitButtonActionPerformed
+
+    private void crebitSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crebitSaveButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crebitSaveButtonActionPerformed
+
+    private void debitDialogWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_debitDialogWindowActivated
+        debitDateChooser.setDate(jCalendar.getDate());
+        String costTemp = debitCostTextBox.getText().replace("$", "");
+        Float cost = Float.valueOf(costTemp);
+        if(!debitDescTextBox.getText().equals("")){
+            DatabaseConnector.saveTransaction(debitDateChooser.getDate(),cost , debitDescTextBox.getText());
+        }
+    }//GEN-LAST:event_debitDialogWindowActivated
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
