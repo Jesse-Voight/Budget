@@ -59,11 +59,11 @@ public class DatabaseConnector {
         String driver = "com.mysql.jdbc.Driver";
         String userName = "jessvoig";
         String password = "qzpm9876";
-        PreparedStatement ps;
         
         try {
             Class.forName(driver).newInstance();
             try (Connection conn = DriverManager.getConnection(url + dbName, userName, password)) {
+                System.out.println(formatDate(date)+" "+String.valueOf(cost)+" "+ description);
                 PreparedStatement st = conn.prepareStatement("INSERT into `budget`.`data` (`date_code`,`desciption`,`cost`,`day`) VALUES ( ? , ? , ? , ? );");
                 //String query = ("INSERT into `budget`.`data` (`date_code`,`desciption`,`cost`,`day`) VALUES ('?','?','?','?');");
                 st.setString(1, formatDate(date));
