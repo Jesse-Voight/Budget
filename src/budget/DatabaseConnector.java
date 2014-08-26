@@ -29,7 +29,7 @@ public class DatabaseConnector {
         String userName = "jessvoig";
         String password = "qzpm9876";
         ArrayList resultArray = new ArrayList();
-        String df = formatDate(date);
+        String df = DateFunctions.formatDate(date);
         System.out.println("Date Formatted: "+df);
         String month = df.substring(4, 6);
         
@@ -63,10 +63,10 @@ public class DatabaseConnector {
         try {
             Class.forName(driver).newInstance();
             try (Connection conn = DriverManager.getConnection(url + dbName, userName, password)) {
-                System.out.println(formatDate(date)+" "+String.valueOf(cost)+" "+ description);
+                System.out.println(DateFunctions.formatDate(date)+" "+String.valueOf(cost)+" "+ description);
                 PreparedStatement st = conn.prepareStatement("INSERT into `budget`.`data` (`date_code`,`desciption`,`cost`,`day`) VALUES ( ? , ? , ? , ? );");
                 //String query = ("INSERT into `budget`.`data` (`date_code`,`desciption`,`cost`,`day`) VALUES ('?','?','?','?');");
-                st.setString(1, formatDate(date));
+                st.setString(1, DateFunctions.formatDate(date));
                 st.setString(2, description);
                 st.setString(3, String.valueOf(cost));
                 st.setString(4, String.valueOf(4));
@@ -80,12 +80,7 @@ public class DatabaseConnector {
         }
     }
     
-    public static String formatDate(Date date){
-        SimpleDateFormat sdformat = new SimpleDateFormat("yyyyMMdd");
-        String formattedDate = sdformat.format(date);
-        //System.out.println("converted date: "+formattedDate);
-        return formattedDate;
-    }
+
     public static String loadTotal(){
         String url = "jdbc:mysql://localhost:3306/";
         String dbName = "budget";
@@ -121,7 +116,7 @@ public class DatabaseConnector {
         String userName = "jessvoig";
         String password = "qzpm9876";
         ArrayList resultArray = new ArrayList();
-        String dateCodeString = formatDate(date);
+        String dateCodeString = DateFunctions.formatDate(date);
         
         try {
             Class.forName(driver).newInstance();
@@ -148,7 +143,7 @@ public class DatabaseConnector {
         String userName = "jessvoig";
         String password = "qzpm9876";
         ArrayList resultArray = new ArrayList();
-        String dateCodeString = formatDate(date);
+        String dateCodeString = DateFunctions.formatDate(date);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -14);
         
