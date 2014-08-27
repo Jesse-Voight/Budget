@@ -385,6 +385,9 @@ public class BudgetForm extends javax.swing.JFrame {
 
     private void jCalendarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarPropertyChange
         getDayRecords(jCalendar.getDate());
+        //System.out.println(DateFunctions.getWeekRange(jCalendar.getDate()));
+        //DateFunctions.test(jCalendar.getDate());
+        DatabaseConnector.loadCurrentWeek(jCalendar.getDate());
     }//GEN-LAST:event_jCalendarPropertyChange
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
