@@ -24,7 +24,6 @@ public class DatabaseConnector {
         String userName = "jessvoig";
         String password = "qzpm9876";
         String df = DateFunctions.formatDate(date);
-        System.out.println("Date Formatted: " + df);
         String month = df.substring(4, 6);
         Float result = 0F;
 
@@ -33,8 +32,6 @@ public class DatabaseConnector {
             try (Connection conn = DriverManager.getConnection(url + dbName, userName, password)) {
                 Statement st = conn.createStatement();
                 ResultSet resultSet = st.executeQuery("SELECT * FROM data WHERE date_code LIKE '____" + month + "__';");
-                System.out.println("Current month:");
-                System.out.println("SELECT * FROM data WHERE date_code LIKE '____" + month + "__';");
                 while (resultSet.next()) {
                     result += resultSet.getFloat(4);
                 }
@@ -56,7 +53,6 @@ public class DatabaseConnector {
         try {
             Class.forName(driver).newInstance();
             try (Connection conn = DriverManager.getConnection(url + dbName, userName, password)) {
-                System.out.println(DateFunctions.formatDate(date) + " " + String.valueOf(cost) + " " + description);
                 PreparedStatement st = conn.prepareStatement("INSERT into `budget`.`data` (`date_code`,`desciption`,`cost`,`day`) VALUES ( ? , ? , ? , ? );");
                 st.setString(1, DateFunctions.formatDate(date));
                 st.setString(2, description);
@@ -94,7 +90,6 @@ public class DatabaseConnector {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(result);
         return String.valueOf(Float.parseFloat(new DecimalFormat("#.##").format(result)));
     }
 
@@ -122,7 +117,6 @@ public class DatabaseConnector {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(result);
         return String.valueOf(Float.parseFloat(new DecimalFormat("#.##").format(result)));
     }
 
@@ -218,7 +212,6 @@ public class DatabaseConnector {
         String password = "qzpm9876";
         ArrayList resultArray = new ArrayList();
         String df = DateFunctions.formatDate(date);
-        System.out.println("Date Formatted: " + df);
         String month = df.substring(4, 6);
 
         try {
@@ -226,11 +219,8 @@ public class DatabaseConnector {
             try (Connection conn = DriverManager.getConnection(url + dbName, userName, password)) {
                 Statement st = conn.createStatement();
                 ResultSet resultSet = st.executeQuery("SELECT * FROM data WHERE date_code LIKE '____" + month + "__';");
-                System.out.println("Current month:");
-                System.out.println("SELECT * FROM data WHERE date_code LIKE '____" + month + "__';");
                 while (resultSet.next()) {
                     String[] temp = {resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4)};
-                    System.out.println(temp);
                     resultArray.add(temp);
                 }
             }
