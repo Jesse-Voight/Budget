@@ -320,8 +320,8 @@
                       <Component id="weekTotalLabel" alignment="0" max="32767" attributes="0"/>
                       <Component id="moneyLabel" alignment="0" max="32767" attributes="0"/>
                       <Component id="averageWeeklLabel" max="32767" attributes="0"/>
-                      <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
                       <Component id="dayTotalLabel" max="32767" attributes="0"/>
+                      <Component id="monthTotalLabel" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jLabel1" min="-2" pref="201" max="-2" attributes="0"/>
               </Group>
@@ -358,6 +358,8 @@
                               <Component id="averageWeeklLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="dayTotalLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="monthTotalLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane2" alignment="0" pref="442" max="32767" attributes="0"/>
                           <Component id="jScrollPane1" max="32767" attributes="0"/>
@@ -366,7 +368,6 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="addDebitButton" alignment="3" max="32767" attributes="0"/>
                           <Component id="addCrebitButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jCalendar" max="32767" attributes="0"/>
@@ -514,14 +515,6 @@
         <Property name="text" type="java.lang.String" value="Money Saved: $0000"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Check Month"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="weekTotalLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -544,6 +537,14 @@
           <Font name="Arial" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Day Total: $0000"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="monthTotalLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Month Total: $0000"/>
       </Properties>
     </Component>
   </SubComponents>
