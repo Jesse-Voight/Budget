@@ -5,6 +5,7 @@
  */
 package budget;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +31,7 @@ public class DateFunctions {
         return DaysInMonth;
     }
     public static String getDay(Date date){
-        String temp = new SimpleDateFormat("EE").format(date);
+        String temp = new SimpleDateFormat("E").format(date);
         return temp;
        
     }
@@ -39,6 +40,15 @@ public class DateFunctions {
         String formattedDate = sdformat.format(date);
         //System.out.println("converted date: "+formattedDate);
         return formattedDate;
+    }
+    public static Date toDate(String dateString){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        try{
+            Date date = sdf.parse(dateString);return date;}
+        catch(ParseException e){
+            //e.printStackTrace();
+            return null;
+        }
     }
 
     /*public static int getWeekRange(Date date) {

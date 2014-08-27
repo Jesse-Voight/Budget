@@ -384,10 +384,11 @@ public class BudgetForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jCalendarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarPropertyChange
-        getDayRecords(jCalendar.getDate());
+        //getDayRecords(jCalendar.getDate());  dont need day, need to load week records
+        
         //System.out.println(DateFunctions.getWeekRange(jCalendar.getDate()));
         //DateFunctions.test(jCalendar.getDate());
-        DatabaseConnector.loadCurrentWeek(jCalendar.getDate());
+        getWeekRecords(jCalendar.getDate());
     }//GEN-LAST:event_jCalendarPropertyChange
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -565,6 +566,48 @@ public class BudgetForm extends javax.swing.JFrame {
                 //System.out.print(j);
                 //System.out.print(" ");
             }//System.out.println(" ");
+        }
+    }
+    public void getWeekRecords(Date date){
+        ArrayList list = DatabaseConnector.loadCurrentWeek(date);
+        //System.out.println(list.size());
+        //System.out.println("Running load current day");
+        int crebits = 0;
+        int debits = 0;
+        //int count = 0;
+        String debitColNames[] = {"Day","Debit Desc", "Debit Cost"};
+        String crebitColNames[] = {"Day","Crebit Desc", "Crebit Cost"};
+        BetterTableModel dtm = new BetterTableModel();
+        BetterTableModel ctm = new BetterTableModel();
+        dtm.setDataVector(null, debitColNames);
+        ctm.setDataVector(null, crebitColNames);
+        debitsTable.setModel(dtm);
+        crebitsTable.setModel(ctm);
+        
+        for(Object i: list){  //get single entry
+            String[] item = (String[])i;
+            if(Float.valueOf(item[2]) > 0){
+                //System.out.print("Positive Value: ");
+                ctm.addRow(new String[0]);
+                crebitsTable.getModel().setValueAt(DateFunctions.getDay(DateFunctions.toDate(item[0])), crebits, 0);
+                crebitsTable.getModel().setValueAt(item[1], crebits, 1);
+                crebitsTable.getModel().setValueAt("$"+item[2], crebits, 2);
+                crebits++;
+                //count++;
+            }
+            else{
+                //System.out.print("Negative Value: ");
+                dtm.addRow(new String[0]);
+                debitsTable.getModel().setValueAt(DateFunctions.getDay(DateFunctions.toDate(item[0])), debits, 0);
+                debitsTable.getModel().setValueAt(item[1], debits, 1);
+                debitsTable.getModel().setValueAt("$"+item[2], debits, 2);
+                debits++;
+                //count++;
+            }
+            /*for(Object j: (String[])i){
+                //System.out.print(j);
+                //System.out.print(" ");
+            }//System.out.println(" ");*/
         }
     }
 }

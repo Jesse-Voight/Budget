@@ -143,7 +143,7 @@ public class DatabaseConnector {
         String userName = "jessvoig";
         String password = "qzpm9876";
         ArrayList resultArray = new ArrayList();
-        String dateCodeString = DateFunctions.formatDate(date);
+        //String dateCodeString = DateFunctions.formatDate(date);
         String[] dateRange = DateFunctions.getWeekRange(date);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -14);
@@ -155,7 +155,7 @@ public class DatabaseConnector {
                 ResultSet resultSet = st.executeQuery("SELECT * FROM data WHERE date_code BETWEEN '"+dateRange[0]+"' AND '"+dateRange[1]+"';");
                 while(resultSet.next()){
                     String[] temp = {resultSet.getString(2),resultSet.getString(3),resultSet.getString(4)};
-                    System.out.println(temp);
+                    //System.out.println(temp);
                     resultArray.add(temp);
                 }
              conn.close();
