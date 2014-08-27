@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -109,6 +110,66 @@ public class DatabaseConnector {
         System.out.println(result);
         return String.valueOf(Float.parseFloat(new DecimalFormat("#.##").format(result)));
     }
+        public static String loadDayTotal(Date date){
+        String url = "jdbc:mysql://localhost:3306/";
+        String dbName = "budget";
+        String driver = "com.mysql.jdbc.Driver";
+        String userName = "jessvoig";
+        String password = "qzpm9876";
+        String dateCode = DateFunctions.formatDate(date);
+        float result = 0;
+        
+        try {
+            Class.forName(driver).newInstance();
+            try (Connection conn = DriverManager.getConnection(url + dbName, userName, password)) {
+                Statement st = conn.createStatement();
+                ResultSet resultSet = st.executeQuery("SELECT * FROM data WHERE date_code ='"+dateCode+"';");
+                
+                while(resultSet.next()){
+                    Float temp  = resultSet.getFloat(4);
+                    //System.out.println(temp);
+                    result+=temp;
+                }
+                
+            }
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(result);
+        return String.valueOf(Float.parseFloat(new DecimalFormat("#.##").format(result)));
+    }
+    public static String loadAverageWeek(Date date){
+        String url = "jdbc:mysql://localhost:3306/";
+        String dbName = "budget";
+        String driver = "com.mysql.jdbc.Driver";
+        String userName = "jessvoig";
+        String password = "qzpm9876";
+        float result = 0;
+        
+        try {
+            Class.forName(driver).newInstance();
+            try (Connection conn = DriverManager.getConnection(url + dbName, userName, password)) {
+                Statement st = conn.createStatement();
+                ResultSet resultSet = st.executeQuery("SELECT * FROM data;");
+                
+                while(resultSet.next()){
+                    Float temp  = resultSet.getFloat(4);
+                    //System.out.println(temp);
+                    result+=temp;
+                }
+                
+            }
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int week = cal.get(Calendar.WEEK_OF_YEAR);
+        result /= week;
+        return String.valueOf(Float.parseFloat(new DecimalFormat("#.##").format(result)));
+    }
     public static ArrayList loadCurrentDay(Date date) {
         String url = "jdbc:mysql://localhost:3306/";
         String dbName = "budget";
@@ -125,7 +186,6 @@ public class DatabaseConnector {
                 ResultSet resultSet = st.executeQuery("SELECT * FROM data WHERE date_code ='"+dateCodeString+"';");
                 while(resultSet.next()){
                     String[] temp = {resultSet.getString(2),resultSet.getString(3),resultSet.getString(4)};
-                    //System.out.println(temp);
                     resultArray.add(temp);
                 }
                 
@@ -161,7 +221,7 @@ public class DatabaseConnector {
              conn.close();
             }
         } 
-        catch (Exception e) {
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
             e.printStackTrace();
         }
         return resultArray;
