@@ -26,7 +26,7 @@ public class DateFunctions {
         return DaysInMonth;
     }
     public static String getDay(Date date){
-        String temp = new SimpleDateFormat("E").format(date);
+        String temp = new SimpleDateFormat("EEEE").format(date);
         return temp;
        
     }

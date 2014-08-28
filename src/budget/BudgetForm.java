@@ -362,6 +362,8 @@ public class BudgetForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        getAccessibleContext().setAccessibleName("Budget Tool Beta 0.8");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
      // <editor-fold defaultstate="collapsed" desc="Event Handlers">  
