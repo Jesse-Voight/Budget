@@ -15,10 +15,12 @@ import java.util.Date;
  *
  * @author Jesse Voight
  */
-public class DatabaseConnector {
+public class DatabaseConnector {        
+    
+    static String databaseServer = "WSC852";
 
     public static String loadMonthTotal(Date date) {
-        String url = "jdbc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://"+databaseServer+":3306/";
         String dbName = "budget";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "jessvoig";
@@ -44,7 +46,7 @@ public class DatabaseConnector {
     }
 
     public static void saveTransaction(Date date, Float cost, String description) {
-        String url = "jdbc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://"+databaseServer+":3306/";
         String dbName = "budget";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "jessvoig";
@@ -68,7 +70,7 @@ public class DatabaseConnector {
     }
 
     public static String loadTotal() {
-        String url = "jdbc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://"+databaseServer+":3306/";
         String dbName = "budget";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "jessvoig";
@@ -94,7 +96,7 @@ public class DatabaseConnector {
     }
 
     public static String loadDayTotal(Date date) {
-        String url = "jdbc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://"+databaseServer+":3306/";
         String dbName = "budget";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "jessvoig";
@@ -121,7 +123,7 @@ public class DatabaseConnector {
     }
 
     public static String loadAverageWeek(Date date) {
-        String url = "jdbc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://"+databaseServer+":3306/";
         String dbName = "budget";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "jessvoig";
@@ -151,7 +153,7 @@ public class DatabaseConnector {
     }
 
     public static ArrayList loadCurrentDay(Date date) {
-        String url = "jdbc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://"+databaseServer+":3306/";
         String dbName = "budget";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "jessvoig";
@@ -177,7 +179,7 @@ public class DatabaseConnector {
     }
 
     public static ArrayList loadCurrentWeek(Date date) {
-        String url = "jdbc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://"+databaseServer+":3306/";
         String dbName = "budget";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "jessvoig";
@@ -205,7 +207,7 @@ public class DatabaseConnector {
     }
 
     public static ArrayList loadCurrentMonth(Date date) {
-        String url = "jdbc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://"+databaseServer+":3306/";
         String dbName = "budget";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "jessvoig";

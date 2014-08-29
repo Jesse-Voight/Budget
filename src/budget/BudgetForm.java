@@ -413,10 +413,11 @@ public class BudgetForm extends javax.swing.JFrame {
 
     private void debitSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debitSaveButtonActionPerformed
         String costTemp = debitCostTextBox.getText().replace("$", "");
+        
         Float cost = Float.valueOf(costTemp);
         if (!debitDescTextBox.getText().equals("")) {
             System.out.println("Past description box check");
-            DatabaseConnector.saveTransaction(debitDateChooser.getDate(), cost, debitDescTextBox.getText());
+            DatabaseConnector.saveTransaction(debitDateChooser.getDate(), -cost, debitDescTextBox.getText());
         } else {
             System.out.println("Please fill in desc box");
         }
