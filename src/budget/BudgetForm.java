@@ -40,6 +40,7 @@ public class BudgetForm extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         crebitSaveButton = new javax.swing.JButton();
         crebitCancelButton = new javax.swing.JButton();
+        statsDialog = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         jCalendar = new com.toedter.calendar.JCalendar();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -67,7 +68,12 @@ public class BudgetForm extends javax.swing.JFrame {
 
         debitDateChooser.setDateFormatString("dd/MM/yyyy");
 
-        debitCostTextBox.setText("$0.00");
+        debitCostTextBox.setText("$");
+        debitCostTextBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                debitCostTextBoxActionPerformed(evt);
+            }
+        });
 
         debitDescTextBox.setColumns(20);
         debitDescTextBox.setRows(5);
@@ -75,7 +81,7 @@ public class BudgetForm extends javax.swing.JFrame {
 
         jLabel3.setText("Date of Transaction:");
 
-        jLabel4.setText("Cost of Debit:");
+        jLabel4.setText("Cost of Debit: (-)");
 
         jLabel5.setText("Description of Debit:");
 
@@ -156,7 +162,12 @@ public class BudgetForm extends javax.swing.JFrame {
 
         crebitDateChooser.setDateFormatString("dd/MM/yyyy");
 
-        crebitCostTextBox.setText("$0.00");
+        crebitCostTextBox.setText("$");
+        crebitCostTextBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crebitCostTextBoxActionPerformed(evt);
+            }
+        });
 
         crebitDescTextBox.setColumns(20);
         crebitDescTextBox.setRows(5);
@@ -231,8 +242,28 @@ public class BudgetForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        statsDialog.setMinimumSize(new java.awt.Dimension(276, 315));
+
+        jLabel1.setText("jLabel1");
+
+        javax.swing.GroupLayout statsDialogLayout = new javax.swing.GroupLayout(statsDialog.getContentPane());
+        statsDialog.getContentPane().setLayout(statsDialogLayout);
+        statsDialogLayout.setHorizontalGroup(
+            statsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(statsDialogLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 242, Short.MAX_VALUE))
+        );
+        statsDialogLayout.setVerticalGroup(
+            statsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(statsDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(290, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Budget Tool ALPHA 0.3");
+        setTitle("Budget Tool ALPHA 0.4");
         setBackground(new java.awt.Color(0, 153, 153));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -240,10 +271,8 @@ public class BudgetForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Harlow Solid Italic", 0, 36)); // NOI18N
-        jLabel1.setText(" Budget 2014");
-
         jCalendar.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 204, 51), new java.awt.Color(0, 204, 51)));
+        jCalendar.setOpaque(false);
         jCalendar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarPropertyChange(evt);
@@ -292,7 +321,7 @@ public class BudgetForm extends javax.swing.JFrame {
             }
         });
 
-        moneyLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        moneyLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         moneyLabel.setText("Money Saved: $0000");
 
         weekTotalLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -314,52 +343,52 @@ public class BudgetForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(weekTotalLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(moneyLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(averageWeeklLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(dayTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(monthTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addDebitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addCrebitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(averageWeeklLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dayTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(weekTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(monthTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(moneyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(addDebitButton, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addCrebitButton, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                .addComponent(jCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(weekTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(averageWeeklLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dayTotalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(monthTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(moneyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(moneyLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(weekTotalLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(averageWeeklLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dayTotalLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(monthTotalLabel))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addDebitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addCrebitButton)))
-                    .addComponent(jCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addDebitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addCrebitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         getAccessibleContext().setAccessibleName("Budget Tool Beta 0.8");
@@ -370,6 +399,12 @@ public class BudgetForm extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         moneyLabel.setText("Money Saved: $" + DatabaseConnector.loadTotal());
         averageWeeklLabel.setText("Average Week: $" + DatabaseConnector.loadAverageWeek(new Date()));
+        //statsDialog.setLocation(this.getLocationOnScreen());
+        //statsDialog.setVisible(true);
+        //statsDialog.setAlwaysOnTop(true);
+        jCalendar.setForeground(Color.black);
+        jCalendar.setBackground(Color.black);
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void jCalendarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarPropertyChange
@@ -409,6 +444,7 @@ public class BudgetForm extends javax.swing.JFrame {
     }
     private void debitDialogWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_debitDialogWindowActivated
         debitDateChooser.setDate(jCalendar.getDate());
+        debitCostTextBox.requestFocusInWindow();
     }//GEN-LAST:event_debitDialogWindowActivated
 
     private void debitSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debitSaveButtonActionPerformed
@@ -437,12 +473,21 @@ public class BudgetForm extends javax.swing.JFrame {
 
     private void crebitDialogWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_crebitDialogWindowActivated
         crebitDateChooser.setDate(jCalendar.getDate());
+        crebitCostTextBox.requestFocusInWindow();
     }//GEN-LAST:event_crebitDialogWindowActivated
 
     private void crebitCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crebitCancelButtonActionPerformed
         crebitDialog.setVisible(false);
         this.refresh();
     }//GEN-LAST:event_crebitCancelButtonActionPerformed
+
+    private void crebitCostTextBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crebitCostTextBoxActionPerformed
+        
+    }//GEN-LAST:event_crebitCostTextBoxActionPerformed
+
+    private void debitCostTextBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debitCostTextBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_debitCostTextBoxActionPerformed
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Main">  
 
@@ -454,7 +499,7 @@ public class BudgetForm extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -470,12 +515,12 @@ public class BudgetForm extends javax.swing.JFrame {
         }
         //</editor-fold>
         Color y = Color.decode("#60a260");
-        //javax.swing.UIManager.put("nimbusBase", y);
-        //javax.swing.UIManager.put("nimbusBlueGrey", y);
-        //javax.swing.UIManager.put("control", y);
-        //javax.swing.UIManager.put("textForeground", Color.BLACK);
-        //javax.swing.UIManager.put("Table.alternateRowColor", Color.GREEN);
-        //javax.swing.UIManager.put("Table:\"Table.cellRenderer\".opaque", false);
+        javax.swing.UIManager.put("nimbusBase", y);
+        javax.swing.UIManager.put("nimbusBlueGrey", y);
+        javax.swing.UIManager.put("control", y);
+        javax.swing.UIManager.put("textForeground", Color.BLACK);
+        javax.swing.UIManager.put("Table.alternateRowColor", Color.GREEN);
+        javax.swing.UIManager.put("Table:\"Table.cellRenderer\".opaque", false);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -521,6 +566,7 @@ public class BudgetForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel moneyLabel;
     private javax.swing.JLabel monthTotalLabel;
+    private javax.swing.JDialog statsDialog;
     private javax.swing.JLabel weekTotalLabel;
     // End of variables declaration//GEN-END:variables
 // </editor-fold>
